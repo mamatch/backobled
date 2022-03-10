@@ -26,7 +26,7 @@ async def get_user_validation(password: str):
     return {"parameter": password}
 
 
-@app.put("/user")
+@app.put("/user/{id}")
 async def modify_user(id: int, user: User):
     """
     A function to modify information about a user
