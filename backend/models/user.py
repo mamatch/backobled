@@ -20,6 +20,7 @@ class User(BaseModel):
     last_name: str
     birthdate: datetime
     id_type: TypeID
+    contact: str
     login: str
     password: str
     mail: str = Query(..., regex="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+).([a-zA-Z]{2,5})$")
