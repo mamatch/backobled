@@ -1,8 +1,6 @@
 from datetime import datetime
 
 from pydantic import BaseModel
-import enum
-from fastapi import Query
 from user import User
 from airport import Airport
 
