@@ -25,7 +25,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 
 @app_v1.post("/user")
-async def post_user(user: User, jwt: bool = Depends(check_jwt_token)):
+async def post_user(user: User):
     """
     A function to create a new user
     :param jwt:
@@ -36,7 +36,7 @@ async def post_user(user: User, jwt: bool = Depends(check_jwt_token)):
 
 
 @app_v1.get("/user")
-async def get_user_validation(password: str, jwt: bool = Depends(check_jwt_token)):
+async def get_user_validation(password: str):
     """
     A function to know if a user exists
     :param jwt:
@@ -47,7 +47,7 @@ async def get_user_validation(password: str, jwt: bool = Depends(check_jwt_token
 
 
 @app_v1.get("/users")
-async def get_users(jwt: bool = Depends(check_jwt_token)):
+async def get_users():
     """
     A function to get all users
     :return:
@@ -56,7 +56,7 @@ async def get_users(jwt: bool = Depends(check_jwt_token)):
 
 
 @app_v1.put("/user/{id}")
-async def modify_user(id: int, user: User, jwt: bool = Depends(check_jwt_token)):
+async def modify_user(id: int, user: User):
     """
     A function to modify information about a user
     :param jwt:
@@ -70,5 +70,5 @@ async def modify_user(id: int, user: User, jwt: bool = Depends(check_jwt_token))
 # Flight routes
 
 @app_v1.get("/flights")
-async def get_flights(jwt: bool = Depends(check_jwt_token)):
+async def get_flights():
     return {"flightd": "all flights"}
