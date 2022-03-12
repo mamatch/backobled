@@ -1,6 +1,4 @@
 from datetime import datetime
-from typing import List
-from flight import Flight
 from pydantic import BaseModel
 import enum
 from fastapi import Query
@@ -19,7 +17,7 @@ class TypeID(enum.Enum):
 class User(BaseModel):
     first_name: str
     last_name: str
-    birthdate: datetime
+    birthdate: str
     id_type: TypeID
     contact: str
     login: str
@@ -27,4 +25,3 @@ class User(BaseModel):
     mail: str = Query(..., regex="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+).([a-zA-Z]{2,5})$")
     role: Role
 
-    flights: List[Flight]
