@@ -47,7 +47,7 @@ async def get_user_validation(password: str, jwt: bool = Depends(check_jwt_token
 
 
 @app_v1.get("/users")
-async def get_users():
+async def get_users(jwt: bool = Depends(check_jwt_token)):
     """
     A function to get all users
     :return:
