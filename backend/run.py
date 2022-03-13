@@ -23,11 +23,11 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     """
     jwt_user_dict = {"username": form_data.username, "password": form_data.password, "role": "admin", "disabled": False}
     jwt_user = JWTUser(**jwt_user_dict)
-    user = authenticate_user(jwt_user)
+    user = await authenticate_user(jwt_user)
 
     if user is None:
         return HTTPException(HTTP_401_UNAUTHORIZED)
-    jwt_token = create_jwt_token(user)
+    jwt_token = await create_jwt_token(user)
     return {"access_token": jwt_token}
 
 
@@ -36,7 +36,7 @@ async def middleware(request: Request, call_next):
     if not any([word in str(request.url) for word in ["/token", "/docs", "/openapi.json"]]):
         try:
             jwt_token = (request.headers["Authorization"]).split(" ")[1]
-            is_valid = check_jwt_token(jwt_token)
+            is_valid = await check_jwt_token(jwt_token)
         except Exception as e:
             is_valid = False
         if not is_valid:

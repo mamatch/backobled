@@ -1,8 +1,10 @@
 from databases import Database
-from const import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
 
 
 # Connect the db
+from utils.consts import DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
+
+
 async def connect_db():
     db = Database("postgresql://{}:{}@{}/{}".format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME))
     await db.connect()
@@ -45,12 +47,18 @@ async def fetch(query, is_one, values=None):
     db = await connect_db()
     if is_one:
         result = await db.fetch_one(query, values)
-        out = dict(result)
+        if result is None:
+            out = None
+        else:
+            out = dict(result)
     else:
         result = await db.fetch_all(query, values)
-        out = []
-        for row in result:
-            out.append(dict(row))
+        if result is None:
+            out = None
+        else:
+            out = []
+            for row in result:
+                out.append(dict(row))
     await disconnect(db)
     return out
 
